@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
 
     public bool paused = false;
     public int score = 0;
+    public int nivel = 1;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class Game : MonoBehaviour
         paused = false;
         UImanager.obj.StartGame();
         UImanager.obj.Menupausa.SetActive(false);
+        nivel++;
     }
 
     public void AddScore(int recibirScore)
@@ -33,6 +35,18 @@ public class Game : MonoBehaviour
     public void gameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void SiguienteNivel()
+    {
+        if(nivel <= 5) {
+            SceneManager.LoadScene(nivel);
+        }
+        else
+        {
+            nivel = 0;
+            SceneManager.LoadScene(nivel);
+        }
     }
 
     private void OnDestroy()

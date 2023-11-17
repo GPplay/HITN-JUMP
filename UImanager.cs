@@ -15,6 +15,7 @@ public class UImanager : MonoBehaviour
 
     public Text livesLbl;
     public Text scoreLbl;
+    public Text nivel;// te mostrar por que nivel va el jugador cuando llegue a el 5 dira nivel final
 
     public Transform UIPanel;
 
@@ -22,13 +23,15 @@ public class UImanager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (juegoPausado)
-            {
-                BotonContinuar();
-            }
-            else
-            {
-                BotonPausa();
+            if(UIPanel.gameObject.activeSelf == false){
+                if (juegoPausado)
+                {
+                    BotonContinuar();
+                }
+                else
+                {
+                    BotonPausa();
+                }
             }
         }
     }
@@ -48,11 +51,17 @@ public class UImanager : MonoBehaviour
         scoreLbl.text = "" + Game.obj.score;
     }
 
+    public void UpdateLevel()
+    {
+        nivel.text = "NIVEL: " + Game.obj.nivel + "- 5";
+    }
+
     public void StartGame()
     {
         AudioManager.obj.PlayIU();
         Game.obj.paused =true;
         UIPanel.gameObject.SetActive(true);
+        Botonpausa.SetActive(false);
     }
 
     public void HideInit()
@@ -60,6 +69,7 @@ public class UImanager : MonoBehaviour
         AudioManager.obj.PlayIU();
         Game.obj.paused =false;
         UIPanel.gameObject.SetActive(false);
+        Botonpausa.SetActive(true);
     }
 
     private void OnDestroy()
